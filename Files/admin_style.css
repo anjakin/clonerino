@@ -1,0 +1,218 @@
+*,
+*:before,
+
+/* This makes sure that the padding and border are included in the total width and height of the elements (thank you w3schools <3) */
+*:after {
+    
+  box-sizing: border-box;
+}
+
+/* to keep style flow, whatever that means, still not clear */
+.clearfix:after {
+    
+    content: "";
+    display: block;
+    clear: both;
+}
+
+body {
+  
+    background-color: #423d3d;
+    color: #2b2121;
+    font-family: monospace;
+    font-size: 15px;
+}
+
+.justify {
+    
+    text-align: justify;
+}
+
+.pretty {
+    
+    /* maybe later */
+    background-color: silver;
+}
+
+.content {
+    
+    margin: 0 auto;
+    padding: 20px;
+    max-width: 95%;
+    background-color: ghostwhite;
+}
+
+h1 {
+    
+    display: inline-block;
+    font-family: monospace;
+    font-size: 2em;
+    margin-bottom: 10px;
+    margin-top: 0;
+}
+
+h2 {
+    
+    font-weight: 1000;
+}
+
+/* didn't work
+ul li {
+    
+    display: inline;
+    padding-right: 3em;
+}
+*/
+
+a {
+        
+    color: black;
+    text-decoration: none;
+    font-style: monospace;
+}
+
+a:hover {
+    
+    color: white;
+    background-color: black;
+}
+
+/* for scaling images, again, no idea how this works */
+img {
+    
+    outline: 0; 
+    max-width: 100%; 
+    height: auto;
+}
+
+#kappa {
+    
+    height: 2em;
+    width: 2em;
+}
+
+iframe {
+    
+    width: 30em;
+    height: 18em;
+    outline: 0; 
+    max-width: 100%; 
+    border: none;
+}
+
+[class*="row-"] {
+    
+    margin-bottom: 20px;
+}
+
+/* so there's no extra space at the bottom of the page */
+[class*="row-"]:last-child {
+    
+    margin-bottom: 0;
+}
+
+@media all and (min-width: 768px) {
+  
+      [class*="col-"] {
+
+        margin-right: 20px;
+      }
+
+      /* so there's no extra space on the right side */
+      [class*="col-"]:last-child {
+          
+        margin-right: 0;
+      }
+
+      .col-1-2 {
+          
+        float: left;
+        width: 50%;
+      }
+    
+      .col-1-4 {
+          
+        float: left;
+        width: 25%;
+      }
+    
+      .col-1-8 {
+          
+        float: left;
+        width: 25%;
+      }
+
+      .row-2 {
+          
+        padding-left: 20px;
+      }
+    
+      .row-2 [class*="col-"]:first-child {
+          
+        margin-left: -20px;
+      }
+
+      .row-4 {
+          
+        padding-left: 60px;
+      }
+    
+      .row-4 [class*="col-"]:first-child {
+          
+        margin-left: -60px;
+      }
+
+      .row-8 {
+          
+        padding-left: 60px;
+      }
+    
+      .row-8 [class*="col-"]:nth-child(4n+1) {
+          
+        margin-left: -60px;
+      }
+    
+      .row-8 [class*="col-"]:nth-child(5n-1) {
+          
+        margin-right: 0;
+      }
+    
+      .row-8 [class*="col-"]:nth-child(6n-1) {
+          
+        clear: both;
+      }
+}
+
+@media all and (min-width: 1200px) {
+  
+      .col-1-8 {
+          
+        float: left;
+        width: 12.5%;
+      }
+
+      .row-8 {
+          
+        padding-left: 140px;
+      }
+    
+      .row-8 [class*="col-"]:nth-child(4n+1) {
+          
+        margin-left: 0;
+      }
+    
+      .row-8 [class*="col-"]:nth-child(5n-1) {
+          
+        margin-right: 20px;
+      }
+    
+      .row-8 [class*="col-"]:nth-child(6n-1) {
+          
+        clear: none;
+      }
+    
+      .row-8 [class*="col-"]:nth-child(1) {
+          
+        margin-left: -140px;
+      }
+}
