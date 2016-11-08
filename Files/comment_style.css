@@ -47,6 +47,11 @@ body {
     text-align: center;
 }
 
+#postbutton {
+    
+    margin-top: 1em;
+}
+
 #formtable {
     
     padding-top: 2em;
