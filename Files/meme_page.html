@@ -10,7 +10,7 @@
         <div class="content">
             <div class="pretty">
                 <h1><a href="main_page.html">Natus Memere</a></h1>
-                <img src="kappa1.png" id="kappa">
+                <img src="Images/kappa1.png" id="kappa">
                 <div class="dropdown">
                     <button onclick="openDropdown()" class="dropdownbtn">Menu stuff</button>
                     <div id="dropdownops" class="dropdown-options">
@@ -25,7 +25,33 @@
             <div class="row-2 clearfix">
                 <div class="bordered">
                     <div class="col-1-4">
-                        <img src="meme1.png">
+                        <img src="Images/meme1.png" alt="cuck king of england" id="firstimage">
+                        <div id="modalpic1" class="modal">
+                          <span class="close" onclick="document.getElementById('modalpic').style.display='none'">&times;</span>
+                          <img class="modal-content" id="img1">
+                          <div id="caption1" class="caption"></div>
+                        </div>
+                        <script>
+                            var modal = document.getElementById("modalpic1");
+
+                            var img = document.getElementById("firstimage");
+                            var modalImg = document.getElementById("img1");
+                            var captionText = document.getElementById("caption1");
+                            img.onclick = function() {
+
+                                modal.style.display = "block";
+                                modalImg.src = this.src;
+                                captionText.innerHTML = this.alt;
+                            }
+
+                            var span = document.getElementsByClassName("close")[0];
+
+                            span.onclick = function() { 
+
+                              modal.style.display = "none";
+                            }
+                        </script>
+                        <script src="escScript.js"></script>
                     </div>
                     <div class="col-1-2">
                         <h3>Memerino titlerino 1</h3>
@@ -37,7 +63,33 @@
             <div class="row-2 clearfix">
                 <div class="bordered">
                     <div class="col-1-4">
-                        <img src="meme2.png">
+                        <img src="Images/meme2.png" id="secondimage">
+                        <div id="modalpic2" class="modal">
+                          <span class="close" onclick="document.getElementById('modalpic').style.display='none'">&times;</span>
+                          <img class="modal-content" id="img2">
+                          <div id="caption2" class="caption"></div>
+                        </div>
+                        <script>
+                            var modal = document.getElementById("modalpic2");
+
+                            var img = document.getElementById("secondimage");
+                            var modalImg = document.getElementById("img2");
+                            var captionText = document.getElementById("caption2");
+                            img.onclick = function() {
+
+                                modal.style.display = "block";
+                                modalImg.src = this.src;
+                                captionText.innerHTML = this.alt;
+                            }
+
+                            var span = document.getElementsByClassName("close")[1];
+
+                            span.onclick = function() { 
+
+                              modal.style.display = "none";
+                            }
+                        </script>
+                        <script src="escScript.js"></script>
                     </div>
                     <div class="col-1-2">
                         <h3>Memerino titlerino 1</h3>
@@ -49,7 +101,33 @@
             <div class="row-2 clearfix">
                 <div class="bordered">
                     <div class="col-1-4">
-                        <img src="meme3.jpg">
+                        <img src="Images/meme3.jpg" id="thirdimage">
+                        <div id="modalpic3" class="modal">
+                          <span class="close" onclick="document.getElementById('modalpic').style.display='none'">&times;</span>
+                          <img class="modal-content" id="img3">
+                          <div id="caption3" class="caption"></div>
+                        </div>
+                        <script>
+                            var modal = document.getElementById("modalpic3");
+
+                            var img = document.getElementById("thirdimage");
+                            var modalImg = document.getElementById("img3");
+                            var captionText = document.getElementById("caption3");
+                            img.onclick = function() {
+
+                                modal.style.display = "block";
+                                modalImg.src = this.src;
+                                captionText.innerHTML = this.alt;
+                            }
+
+                            var span = document.getElementsByClassName("close")[2];
+
+                            span.onclick = function() { 
+
+                              modal.style.display = "none";
+                            }
+                        </script>
+                        <script src="escScript.js"></script>
                     </div>
                     <div class="col-1-2">
                         <h3>Memerino titlerino 1</h3>
