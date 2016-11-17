@@ -1,7 +1,7 @@
 *,
 *:before,
 
-/* This makes sure that the padding and border are included in the total width and height of the elements (thank you w3schools <3) */
+/* this makes sure that the padding and border are included in the total width and height of the elements (thank you w3schools <3) */
 *:after {
     
   box-sizing: border-box;
@@ -23,6 +23,60 @@ body {
     font-size: 15px;
 }
 
+/* dropdown menu part, thanks again w3schools u r a blessing */
+.dropdown {
+    
+    position: relative;
+    margin-left: 1em;
+    padding-bottom: 1em;
+}
+
+.dropdown-options {
+    
+    /* they don't show up right away tho */
+    display: none;
+    position: absolute;
+    background-color: lightgrey;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.dropdown-options a {
+    
+    color: black;
+    padding: 0.5em 0.5em;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-options a:hover {
+    
+    background-color: darkgrey;
+}
+
+.dropdownbtn {
+    
+    background-color: darkgrey;
+    color: black;
+    padding: 0.5em;
+    font-size: 100%;
+    font-family: monospace;
+    border: none;
+    border-radius: 1px;
+}
+
+/* we add this to dropdown-options using js */
+.show {
+    
+    display: block;
+}
+
+.dropdownbtn:hover, .dropdownbtn:focus {
+    
+    background-color: slategrey;
+    cursor: hand;
+}
+
 .justify {
     
     text-align: justify;
@@ -32,6 +86,7 @@ body {
     
     /* maybe later */
     background-color: lightgrey;
+    margin-bottom: 2em;
 }
 
 .content {
@@ -42,25 +97,9 @@ body {
     background-color: ghostwhite;
 }
 
-.center {
-    
-    text-align: center;
-}
-
 #postbutton {
     
     margin-top: 1em;
-}
-
-#formtable {
-    
-    padding-top: 2em;
-    padding-right: 2em;
-}
-
-#formtable button {
-    
-    float: right;
 }
 
 h1 {
@@ -82,14 +121,6 @@ h3 {
     margin-top: 0;
 }
 
-/* didn't work
-ul li {
-    
-    display: inline;
-    padding-right: 3em;
-}
-*/
-
 a {
         
     color: black;
@@ -103,18 +134,6 @@ a:hover {
     background-color: black;
 }
 
-.commentslink {
-    
-    text-decoration: underline;
-    color: darkgrey;
-    float: right;
-}
-
-#submitlink {
-    
-    text-decoration: underline;
-}
-
 /* for scaling images, again, no idea how this works */
 img {
     
@@ -123,26 +142,10 @@ img {
     height: auto;
 }
 
-.bordered img {
-    
-    border-style: solid;
-    border-color: black;
-    border-radius: 2px;
-}
-
 #kappa {
     
     height: 2em;
     width: 2em;
-}
-
-iframe {
-    
-    width: 30em;
-    height: 18em;
-    outline: 0; 
-    max-width: 100%; 
-    border: none;
 }
 
 input {
@@ -188,6 +191,13 @@ button {
     border-width: 2px;
     border-color: black;
     border-style: solid;
+}
+
+#cmnttxt {
+    
+    width: 100%;
+    height: 10em;
+    margin-bottom: 1em;
 }
 
 [class*="row-"] {
