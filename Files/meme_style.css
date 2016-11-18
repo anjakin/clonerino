@@ -156,7 +156,7 @@ img {
     border-radius: 2px;
 }
 
-/* w3schools called it modal so i'm just gonna steal the name because i actually have no idea how else to call it */
+/* w3schools called it modal so i'm just gonna steal the name because i actually have no idea how else to call it */ 
 .modal {
     
     /* so it doesn't show up right away */
@@ -230,7 +230,6 @@ img {
 }
 */
 
-/* the little x button stuff, useful for mobile when there's no esc key */
 .close {
     
     position: absolute;
