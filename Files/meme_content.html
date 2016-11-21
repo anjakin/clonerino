@@ -1,0 +1,61 @@
+<script src="dropdownScript.js"></script>
+        <div class="content">
+            <div class="pretty">
+                <h1><a href="main_page.html">Natus Memere</a></h1>
+                <img src="Images/kappa1.png" id="kappa">
+                <div class="dropdown">
+                    <button onclick="openDropdown()" class="dropdownbtn">Menu stuff</button>
+                    <div id="dropdownops" class="dropdown-options">
+                        <a href="admin_page.html">Admin page</a>
+                        <a href="meme_page.html">Saucy memes</a>
+                        <a href="http://www.w3schools.com/css/css_rwd_grid.asp">Doggos and other special animols</a>
+                        <a href="harambe_page.html">Harambe tribute page</a>
+                    </div>
+                </div>
+            </div>
+            <h2><a href="" id="submitlink">Submit your own dankness</a></h2>
+            <div class="gallery">
+                <div class="row-2 clearfix">
+                    <div class="bordered">
+                        <div class="col-1-4">
+                            <img src="Images/meme1.png" alt="cuck king of england" id="image1" class="images" onload="modalThing(0)">
+                        </div>
+                        <div class="col-1-2">
+                            <h3>Memerino titlerino 1</h3>
+                            <a href="comment_page.html" class="commentslink">comments</a>
+                            <p>Description, maybe</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-2 clearfix">
+                    <div class="bordered">
+                        <div class="col-1-4">
+                            <img src="Images/meme2.png" id="image2" class="images" onload="modalThing(1)">
+                        </div>
+                        <div class="col-1-2">
+                            <h3>Memerino titlerino 1</h3>
+                            <a href="comment_page.html" class="commentslink">comments</a>
+                            <p>Description, maybe</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-2 clearfix">
+                    <div class="bordered">
+                        <div class="col-1-4">
+                            <img src="Images/meme3.jpg" id="image3" class="images" onload="modalThing(2)">
+                        </div>
+                        <div class="col-1-2">
+                            <h3>Memerino titlerino 1</h3>
+                            <a href="comment_page.html" class="commentslink">comments</a>
+                            <p>Description, maybe</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="modalid" class="modal">
+                    <span class="close" id="close" onclick="document.getElementById('modalid').style.display='none'">&times;</span>
+                    <img class="modal-content" id="img">
+                    <div id="caption" class="caption"></div>
+                    <script src="galleryScript.js"></script>
+                </div>
+            </div>
+        </div>
