@@ -197,14 +197,12 @@ img {
 }
 
 /* it's not smooth without webkit but i'm not sure it's allowed so idc */
-.modal-content, .caption { 
+.modal-content, .admin-modal-content, .caption { 
     
     animation-name: zoom;
     animation-duration: 0.3s;
 }
 
-/* this just makes the picture zoom in by scaling it */
-/*
 @-webkit-keyframes zoom {
     
     from {
@@ -228,7 +226,6 @@ img {
         transform:scale(1)
     }
 }
-*/
 
 .close {
     
@@ -246,6 +243,22 @@ img {
     color: #bbb;
     text-decoration: none;
     cursor: pointer;
+}
+
+.admin-modal-content {
+    
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; 
+}
+
+#submitadminbtn {
+    
+    float: right;
+    height: 2em;
+    width: 8em;
 }
 
 @media only screen and (max-width: 700px){
@@ -271,6 +284,13 @@ img {
 [class*="row-"]:last-child {
     
     margin-bottom: 0;
+}
+
+#adminloginbtn {
+    
+    margin-top: 2em;
+    border: solid 1px black;
+    border-radius: 10px;
 }
 
 @media all and (min-width: 768px) {

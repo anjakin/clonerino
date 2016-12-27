@@ -1,46 +1,57 @@
-<script src="dropdownScript.js"></script>
-            <h2><a href="" id="submitlink">Submit your own dankness</a></h2>
-            <div class="gallery">
-                <div class="row-2 clearfix">
-                    <div class="bordered">
-                        <div class="col-1-4">
-                            <img src="Images/meme1.png" alt="cuck king of england" id="image1" class="images" onload="modalThing(0)">
-                        </div>
-                        <div class="col-1-2">
-                            <h3>Memerino titlerino 1</h3>
-                            <a href="comment_page.html" class="commentslink">comments</a>
-                            <p>Description, maybe</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="row-2 clearfix">
-                    <div class="bordered">
-                        <div class="col-1-4">
-                            <img src="Images/meme2.png" id="image2" class="images" onload="modalThing(1)">
-                        </div>
-                        <div class="col-1-2">
-                            <h3>Memerino titlerino 1</h3>
-                            <a href="comment_page.html" class="commentslink">comments</a>
-                            <p>Description, maybe</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="row-2 clearfix">
-                    <div class="bordered">
-                        <div class="col-1-4">
-                            <img src="Images/meme3.jpg" id="image3" class="images" onload="modalThing(2)">
-                        </div>
-                        <div class="col-1-2">
-                            <h3>Memerino titlerino 1</h3>
-                            <a href="comment_page.html" class="commentslink">comments</a>
-                            <p>Description, maybe</p>
-                        </div>
-                    </div>
-                </div>
-                <div id="modalid" class="modal">
-                    <span class="close" id="close" onclick="document.getElementById('modalid').style.display='none'">&times;</span>
-                    <img class="modal-content" id="img">
-                    <div id="caption" class="caption"></div>
-                    <script src="galleryScript.js"></script>
-                </div>
+<button id="adminloginbtn" onclick="adminFoo()">Log in as admin</button>
+<div id="adminmodal" class="modal">
+  <div class="admin-modal-content">
+    <span class="close">&times;</span>
+    <form method="POST" action="login.php">
+        <label>Username: </label>
+        <input type="text" name="username">
+        <label>Password: </label>
+        <input type="text" name="password">
+        <button id="submitadminbtn">Log in</button>
+    </form>
+  </div>
+</div>
+<h2><a href="" id="submitlink">Submit your own dankness</a></h2>
+<div class="gallery">
+    <div class="row-2 clearfix">
+        <div class="bordered">
+            <div class="col-1-4">
+                <img src="Images/meme1.png" alt="cuck king of england" id="image1" class="images" onload="modalThing(0)">
             </div>
+            <div class="col-1-2">
+                <h3>Memerino titlerino 1</h3>
+                <a href="comment_page.html" class="commentslink">comments</a>
+                <p>Description, maybe</p>
+            </div>
+        </div>
+    </div>
+    <div class="row-2 clearfix">
+        <div class="bordered">
+            <div class="col-1-4">
+                <img src="Images/meme2.png" id="image2" class="images" onload="modalThing(1)">
+            </div>
+            <div class="col-1-2">
+                <h3>Memerino titlerino 1</h3>
+                <a href="comment_page.html" class="commentslink">comments</a>
+                <p>Description, maybe</p>
+            </div>
+        </div>
+    </div>
+    <div class="row-2 clearfix">
+        <div class="bordered">
+            <div class="col-1-4">
+                <img src="Images/meme3.jpg" id="image3" class="images" onload="modalThing(2)">
+            </div>
+            <div class="col-1-2">
+                <h3>Memerino titlerino 1</h3>
+                <a href="comment_page.html" class="commentslink">comments</a>
+                <p>Description, maybe</p>
+            </div>
+        </div>
+    </div>
+    <div id="modalid" class="modal">
+        <span class="close" id="imgclose" onclick="document.getElementById('modalid').style.display='none'">&times;</span>
+        <img class="modal-content" id="img">
+        <div id="caption" class="caption"></div>
+    </div>
+</div>

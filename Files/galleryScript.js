@@ -12,7 +12,7 @@ function modalThing(index) {
         captionText.innerHTML = this.alt;
     }
 
-    var span = document.getElementById("close");
+    var span = document.getElementById("imgclose");
 
     span.onclick = function() { 
         

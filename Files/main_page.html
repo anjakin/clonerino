@@ -3,10 +3,11 @@
     <head>
         <title>Natus Memere</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="main_style.css">
+        <link id="csswitch" rel="stylesheet" type="text/css" href="main_style.css">
         <script src="dropdownScript.js"></script>
         <script src="ajaxScript.js"></script>
         <script src="galleryScript.js"></script>
+        <script src="adminModal.js"></script>
     </head>
     <body>
         <div class="content"> 
@@ -16,10 +17,11 @@
                 <div class="dropdown">
                     <button onclick="openDropdown()" class="dropdownbtn">Menu stuff</button>
                     <div id="dropdownops" class="dropdown-options">
-                        <a href="#" onclick="ajaxSwitch('http://localhost/clonerino/Files/admin_content.html')">Admin page</a>
-                        <a href="#" onclick="ajaxSwitch('http://localhost/clonerino/Files/meme_content.html')">Saucy memes</a>
+                        <a href="#" onclick="ajaxSwitch('http://localhost:81/wt/clonerino/Files/admin_content.html', 'admin_style.css')">Admin page</a>
+                        <!--<a href="#" onclick="ajaxSwitch('http://localhost:81/wt/clonerino/Files/meme_content.php', 'meme_style.css')">Saucy memes</a>-->
+                        <a href="http://localhost:81/wt/clonerino/Files/meme_content.php">Saucy memes</a>
                         <a href="http://www.w3schools.com/css/css_rwd_grid.asp">Doggos and other special animols</a>
-                        <a href="#" onclick="ajaxSwitch('http://localhost/clonerino/Files/harambe_content.html')">Harambe tribute page</a>
+                        <a href="#" onclick="ajaxSwitch('http://localhost:81/wt/clonerino/Files/harambe_content.html', 'harambe_style.css')">Harambe tribute page</a>
                     </div>
                 </div>
             </div>
