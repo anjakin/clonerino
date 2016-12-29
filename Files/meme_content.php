@@ -1,6 +1,11 @@
 <?php
+    
+    function phpAlert($msg) {
+        echo '<script type="text/javascript">alert("' . $msg . '")</script>';
+    }
 
     session_start();
+
     if(isset($_SESSION['username'])) {
       
 		$username = $_SESSION['username'];
@@ -16,20 +21,28 @@
             
 			if($_REQUEST['username'] === "admin" && $_REQUEST['password'] === "adminpass") {
                 
-                session_start();
+                if (session_status() == PHP_SESSION_NONE) {
+                    session_start();
+                }
+                
+                phpAlert("Successful login.");
 				$username = $_REQUEST['username'];
 				$_SESSION['username']= $username;
                 $_SESSION['state'] = "adminmode";
 			}
 			else {
                 
-				session_unset();
-                session_destroy();
+                phpAlert("Wrong login info.");
+                if (session_status() != PHP_SESSION_NONE) {
+                    session_unset();
+                    session_destroy();
+                }
+                
 				$username = "";
 			}
 		}
     }
-
+    
     $adminXML = "admin.xml";
     $exists = file_exists($adminXML);
     if($exists == FALSE) {
@@ -52,28 +65,19 @@
         $postData = new SimpleXMLElement("
         <posts>
             <post>
-                <title>
-                    First meme
-                </title>
-                <desc>
-                    This is the first meme
-                </desc>
+                <title>First meme</title>
+                <desc>This is the first meme</desc>
+                <image>Images/meme1.png</image>
             </post>
             <post>
-                <title>
-                    Second meme
-                </title>
-                <desc>
-                    This is the second meme
-                </desc>
+                <title>Second meme</title>
+                <desc>This is the second meme</desc>
+                <image>Images/meme2.png</image>
             </post>
             <post>
-                <title>
-                    Third meme
-                </title>
-                <desc>
-                    This is the third meme
-                </desc>
+                <title>Third meme</title>
+                <desc>This is the third meme</desc>                
+                <image>Images/meme3.jpg</image>
             </post>
         </posts>");
         $postData->asXML($postsXML);
@@ -84,31 +88,58 @@
       $postData = simplexml_load_file($postsXML);
     }
 
-    if (isset($_POST['save_title'])) {
-      
-      $postData->title = $_POST['input_title'];
-      $postData->asXML($postsXML);
-    }
-
-    if (isset($_POST['save_desc'])) {
+    if (isset($_POST['save_changes1'])) {
         
-      $postData->desc = $_POST['input_desc'];
-      $postData->asXML($postsXML);
-    }
-
-    if (isset($_POST['delete_title'])) {
+        $postData->post[0]->title = $_POST['input_title1'];
+        $postData->post[0]->desc = $_POST['input_desc1'];
         
-      $postData->title = "";
-      $postData->asXML($postsXML);
+        $postData->asXML($postsXML);
     }
 
-    if (isset($_POST['delete_desc'])) {
+    if (isset($_POST['save_changes2'])) {
         
-      $postData->desc = "";
-      $postData->asXML($postsXML);
+        $postData->post[1]->title = $_POST['input_title2'];
+        $postData->post[1]->desc = $_POST['input_desc2'];
+        
+        $postData->asXML($postsXML);
     }
 
-    if( isset($_GET['subject']) && isset($_SESSION['username'])) {
+    if (isset($_POST['save_changes3'])) {
+        
+        $postData->post[2]->title = $_POST['input_title3'];
+        $postData->post[2]->desc = $_POST['input_desc3'];
+        
+        $postData->asXML($postsXML);
+    }
+
+    if (isset($_POST['delete_post1'])) {
+        
+        $postData->post[0]->title = "REMOVED";
+        $postData->post[0]->desc = "REMOVED";
+        $postData->post[0]->image = 'Images/placeholder.png';
+        
+        $postData->asXML($postsXML);
+    }
+
+    if (isset($_POST['delete_post2'])) {
+        
+        $postData->post[1]->title = "REMOVED";
+        $postData->post[1]->desc = "REMOVED";
+        $postData->post[1]->image = 'Images/placeholder.png';
+        
+        $postData->asXML($postsXML);
+    }
+
+    if (isset($_POST['delete_post3'])) {
+        
+        $postData->post[2]->title = "REMOVED";
+        $postData->post[2]->desc = "REMOVED";
+        $postData->post[2]->image = 'Images/placeholder.png';
+        
+        $postData->asXML($postsXML);
+    }
+
+    if(isset($_GET['subject']) && isset($_SESSION['username'])) {
         
         if($_GET['subject'] == "adminlogout"){
             
@@ -152,22 +183,43 @@
                     <div class="row-2 clearfix">
                         <div class="bordered">
                             <div class="col-1-4">
-                                <img src="Images/meme1.png" alt="cuck king of england" id="image1" class="images" onload="modalThing(0)">
+                                <img src="<?php echo $postData->post[0]->image ?>" alt="cuck king of england" id="image1" class="images" onload="modalThing(0)">
                             </div>
                             <div class="col-1-2">
-                                <?php echo $_SESSION['state']; ?>
                                 <?php if(isset($_SESSION['state']) && $_SESSION['state'] === "adminmode"): ?>
-                                    <form>
-                                        <input type="text" value="Title 1">
-                                        <input type="button" value="Change title" name="">
-                                        <a href="comment_page.html" class="commentslink">comments</a>
-                                        <input type="text" value="Description">
-                                        <input type="button" value="Change description" name="">
-                                    </form>
+                                    <?php
+                                        $postData = simplexml_load_file($postsXML);
+                                        $children = $postData->children();
+                                        $grandchildren = $children[0]->children();
+                                        echo '<form method="post" action="'.htmlspecialchars($_SERVER["PHP_SELF"]).'">
+                                            <input type="text" value="'.trim(htmlspecialchars($grandchildren[0])).'" name="input_title1" id="title_area">
+                                            <a href="comment_page.html" class="commentslink">comments</a>
+                                            <button type="submit" name="save_changes1" id="savebtn1">Save changes</button>
+                                            <button type="submit" name="delete_post1" id="deletebtn1">Remove post</button>
+                                            <br>
+                                            <textarea name="input_desc1" id="desc_textarea">'.trim(htmlspecialchars($grandchildren[1])).'</textarea>
+                                        </form>';
+                                        if (isset($_POST['save_changes1'])) {
+                                            
+                                            $newXML = simplexml_load_file($postsXML);
+                                            $newXML->post[0]->title = $_POST['input_title1'];
+                                            $newXML->post[0]->desc = $_POST['input_desc1'];
+                                            $newXML->asXML($postsXML);
+                                        }
+                                
+                                        if (isset($_POST['delete_post1'])) {
+                                            
+                                            $newXML = simplexml_load_file($postsXML);
+                                            $newXML->post[0]->title = "REMOVED";
+                                            $newXML->post[0]->desc = "REMOVED";
+                                            $newXML->post[0]->image = 'Images/placeholder.png';
+                                            $newXML->asXML($postsXML);
+                                        }
+                                    ?>
                                 <?php else: ?>
-                                    <h3>Memerino titlerino 1</h3>
+                                    <h3><?php echo $postData->post[0]->title ?></h3>
                                     <a href="comment_page.html" class="commentslink">comments</a>
-                                    <p>Description, maybe</p>
+                                    <p><?php echo $postData->post[0]->desc ?></p>
                                 <?php endif; ?>
                             </div>
                         </div>
@@ -175,24 +227,88 @@
                     <div class="row-2 clearfix">
                         <div class="bordered">
                             <div class="col-1-4">
-                                <img src="Images/meme2.png" id="image2" class="images" onload="modalThing(1)">
+                                <img src="<?php echo $postData->post[1]->image ?>" id="image2" class="images" onload="modalThing(1)">
                             </div>
                             <div class="col-1-2">
-                                <h3>Memerino titlerino 1</h3>
-                                <a href="comment_page.html" class="commentslink">comments</a>
-                                <p>Description, maybe</p>
+                                <?php if(isset($_SESSION['state']) && $_SESSION['state'] === "adminmode"): ?>
+                                    <?php
+                                        $postData = simplexml_load_file($postsXML);
+                                        $children = $postData->children();
+                                        $grandchildren = $children[1]->children();
+                                        echo '<form method="post" action="'.htmlspecialchars($_SERVER["PHP_SELF"]).'">
+                                            <input type="text" value="'.trim(htmlspecialchars($grandchildren[0])).'" name="input_title2" id="title_area">
+                                            <a href="comment_page.html" class="commentslink">comments</a>
+                                            <button type="submit" name="save_changes2" id="savebtn2">Save changes</button>
+                                            <button type="submit" name="delete_post2" id="deletebtn2">Remove post</button>
+                                            <br>
+                                            <textarea name="input_desc2" id="desc_textarea">'.trim(htmlspecialchars($grandchildren[1])).'</textarea>
+                                        </form>';
+                                        if (isset($_POST['save_changes2'])) {
+                                            
+                                            $newXML = simplexml_load_file($postsXML);
+                                            $newXML->post[1]->title = $_POST['input_title2'];
+                                            $newXML->post[1]->desc = $_POST['input_desc2'];
+                                            $newXML->asXML($postsXML);
+                                        }
+                                
+                                        if (isset($_POST['delete_post2'])) {
+                                            
+                                            $newXML = simplexml_load_file($postsXML);
+                                            $newXML->post[1]->title = "REMOVED";
+                                            $newXML->post[1]->desc = "REMOVED";
+                                            $newXML->post[1]->image = 'Images/placeholder.png';
+                                            $newXML->asXML($postsXML);
+                                        }
+                                    ?>
+                                <?php else: ?>
+                                    <h3><?php echo $postData->post[1]->title ?></h3>
+                                    <a href="comment_page.html" class="commentslink">comments</a>
+                                    <p><?php echo $postData->post[1]->desc ?></p>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
                     <div class="row-2 clearfix">
                         <div class="bordered">
                             <div class="col-1-4">
-                                <img src="Images/meme3.jpg" id="image3" class="images" onload="modalThing(2)">
+                                <img src="<?php echo $postData->post[2]->image ?>" id="image3" class="images" onload="modalThing(2)">
                             </div>
                             <div class="col-1-2">
-                                <h3>Memerino titlerino 1</h3>
-                                <a href="comment_page.html" class="commentslink">comments</a>
-                                <p>Description, maybe</p>
+                                <?php if(isset($_SESSION['state']) && $_SESSION['state'] === "adminmode"): ?>
+                                    <?php
+                                        $postData = simplexml_load_file($postsXML);
+                                        $children = $postData->children();
+                                        $grandchildren = $children[2]->children();
+                                        echo '<form method="post" action="'.htmlspecialchars($_SERVER["PHP_SELF"]).'">
+                                            <input type="text" value="'.trim(htmlspecialchars($grandchildren[0])).'" name="input_title3" id="title_area">
+                                            <a href="comment_page.html" class="commentslink">comments</a>
+                                            <button type="submit" name="save_changes3" id="savebtn3">Save changes</button>
+                                            <button type="submit" name="delete_post3" id="deletebtn3">Remove post</button>
+                                            <br>
+                                            <textarea name="input_desc3" id="desc_textarea">'.trim(htmlspecialchars($grandchildren[1])).'</textarea>
+                                        </form>';
+                                        if (isset($_POST['save_changes3'])) {
+                                            
+                                            $newXML = simplexml_load_file($postsXML);
+                                            $newXML->post[2]->title = $_POST['input_title3'];
+                                            $newXML->post[2]->desc = $_POST['input_desc3'];
+                                            $newXML->asXML($postsXML);                                           
+                                        }
+                                
+                                    if (isset($_POST['delete_post3'])) {
+                                            
+                                            $newXML = simplexml_load_file($postsXML);
+                                            $newXML->post[2]->title = "REMOVED";
+                                            $newXML->post[2]->desc = "REMOVED";
+                                            $newXML->post[2]->image = 'Images/placeholder.png';
+                                            $newXML->asXML($postsXML);
+                                        }
+                                    ?>
+                                <?php else: ?>
+                                    <h3><?php echo $postData->post[2]->title ?></h3>
+                                    <a href="comment_page.html" class="commentslink">comments</a>
+                                    <p><?php echo $postData->post[2]->desc ?></p>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
@@ -202,9 +318,15 @@
                         <div id="caption" class="caption"></div>
                     </div>
                 </div>
-                <button id="adminloginbtn" onclick="adminFoo()">Log in as admin</button>
-                <div id="adminmodal" class="modal">
-                    <?php require('login.php'); ?>
+                <div class="row-2 clearfix">
+                    <?php if(isset($_SESSION['state']) && $_SESSION['state'] === "adminmode"): ?>
+                        <a href="meme_content.php?subject=adminlogout" id="logoutlink">Log out</a>
+                    <?php else: ?>
+                        <button id="adminloginbtn" onclick="adminFoo()">Log in as admin</button>
+                        <div id="adminmodal" class="modal">
+                            <?php require('login.php'); ?>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>

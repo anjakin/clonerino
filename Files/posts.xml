@@ -1,2 +1,18 @@
 <?xml version="1.0"?>
-<posts/>
+<posts>
+            <post>
+                <title>REMOVED</title>
+                <desc>REMOVED</desc>
+                <image>Images/placeholder.png</image>
+            </post>
+            <post>
+                <title>Second meme</title>
+                <desc>This is the second meme</desc>
+                <image>Images/meme2.png</image>
+            </post>
+            <post>
+                <title>Third meme</title>
+                <desc>This is the third meme</desc>                
+                <image>Images/meme3.jpg</image>
+            </post>
+        </posts>

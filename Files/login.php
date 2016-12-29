@@ -4,8 +4,8 @@
         <label>Username: </label>
         <input type="text" name="username" required>
         <label>Password: </label>
-        <input type="text" name="password" required>
-        <button id="submitadminbtn">Log in</button>
+        <input type="password" name="password" required>
+        <button type="submit" name="submitadminbtn" id="submitadminbtn">Log in</button>
     </form>
 </div>
 
