@@ -16,5 +16,5 @@ function ajaxSwitch(newContent, newCSS) {
     ajax.open("GET", newContent, true);
     ajax.send();
     
-    // document.getElementById("innercontent").innerHTML = "heck this";
+    // document.getElementById("innercontent").innerHTML = "heck this hecking heck";
 }

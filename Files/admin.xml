@@ -4,6 +4,7 @@
         admin
     </username>
     <password>
+        <!-- po uzoru na etf sigurnost -->
         adminpass
     </password>
 </admin>

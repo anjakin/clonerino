@@ -1,5 +1,6 @@
 function modalThing(index) {
     
+    // thank you w3schools
     var modal = document.getElementById("modalid");
     var img = document.getElementsByClassName("images")[index];
     var modalImg = document.getElementById("img");

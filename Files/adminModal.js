@@ -1,5 +1,6 @@
 function adminFoo() {
     
+    // this does cool stuff, thanks w3schools
     var modal = document.getElementById('adminmodal');
     var btn = document.getElementById("adminloginbtn");
     var span = document.getElementsByClassName("close")[0];
