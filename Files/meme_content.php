@@ -88,6 +88,7 @@
       $postData = simplexml_load_file($postsXML);
     }
 
+    // updates part
     if (isset($_POST['save_changes1'])) {
         
         $postData->post[0]->title = $_POST['input_title1'];
@@ -148,6 +149,84 @@
           $username = "";
         }
     }
+    
+    // csv part
+    $file = fopen("data.csv", "w") or die("Can't create file");
+    $file_input = array();
+    
+    foreach($postData->children() as $post) {
+        $line = array();
+        foreach($post->children() as $item) {
+            array_push($line, $item);
+        }
+        
+        array_push($file_input, $line);
+    }
+
+    foreach ($file_input as $fields) {
+        
+        fputcsv($file, $fields);
+    }
+    
+    $jpgs = 0;
+    $pngs = 0;
+
+    if (strpos($postData->post[0]->image, 'jpg')) {
+        
+        $jpgs++;
+    }
+    else {
+        
+        $pngs++;
+    }
+
+    if (strpos($postData->post[1]->image, 'jpg')) {
+        
+        $jpgs++;
+    }
+    else {
+        
+        $pngs++;
+    }
+
+    if (strpos($postData->post[2]->image, 'jpg')) {
+        
+        $jpgs++;
+    }
+    else {
+        
+        $pngs++;
+    }
+
+    // pdf part
+    require('fpdf.php');
+
+    $pdf = new FPDF();
+    $pdf->AddPage();
+    $pdf->SetFont('Arial','B', 16);
+    $pdf->SetTitle('Random stuff');
+    $pdf->Cell(40, 5, "Title");
+    $pdf->Cell(40, 5, "Description");
+    $pdf->Ln(10);
+    $pdf->SetFont('Arial', 'I', 12);
+    $pdf->Cell(40, 5, $postData->post[0]->title);
+    $pdf->Cell(40, 5, $postData->post[0]->desc);
+    $pdf->Ln(10);
+    $pdf->Cell(40, 5, $postData->post[1]->title);
+    $pdf->Cell(40, 5, $postData->post[1]->desc);
+    $pdf->Ln(10);
+    $pdf->Cell(40, 5, $postData->post[2]->title);
+    $pdf->Cell(40, 5, $postData->post[2]->desc);
+    $pdf->Image('Images/kappa1.png', 120, 5, -300);
+    $pdf->Ln(30);
+    $pdf->SetFont('Arial','B', 14);
+    $pdf->Cell(40, 5, "JPG images");
+    $pdf->Cell(40, 5, "PNG images");
+    $pdf->SetFont('Arial','I', 12);
+    $pdf->Ln(10);
+    $pdf->Cell(40, 5, $jpgs);
+    $pdf->Cell(40, 5, $pngs);
+    $pdf->Output('F', "statistics.pdf");
 ?>
 
 <!DOCTYPE html>
@@ -178,7 +257,7 @@
                 </div>
             </div>
             <div id="innercontent">
-                <h2><a href="" id="submitlink">Submit your own dankness</a></h2>
+                <h2><a href="submit_page.html" id="submitlink">Submit your own dankness</a></h2>
                 <div class="gallery">
                     <div class="row-2 clearfix">
                         <div class="bordered">
@@ -321,6 +400,10 @@
                 <div class="row-2 clearfix">
                     <?php if(isset($_SESSION['state']) && $_SESSION['state'] === "adminmode"): ?>
                         <a href="meme_content.php?subject=adminlogout" id="logoutlink">Log out</a>
+                        <br>
+                        <a href="data.csv" id="downloadcsv">Download csv file</a>
+                        <br>
+                        <a href="statistics.pdf" id="downloadpdf">Open pdf file</a>
                     <?php else: ?>
                         <button id="adminloginbtn" onclick="adminFoo()">Log in as admin</button>
                         <div id="adminmodal" class="modal">
