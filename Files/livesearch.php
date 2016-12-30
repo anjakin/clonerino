@@ -5,6 +5,7 @@
     $x = $xmlDoc->getElementsByTagName('link');
 
     $q = $_GET["q"];
+    $q = htmlspecialchars($q);
 
     $hint = "";
     if (strlen($q) > 0) {

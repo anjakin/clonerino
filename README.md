@@ -19,3 +19,16 @@
 - Dropdown meni je odradjen tako da sadrzi linkove na sve (zasad isplanirane) podstranice, nalazi se na mjestu liste iz prve verzije stranice
 - Gallery dio je implementiran na jednoj stranici, iako nije sve popunjeno slikama (jer ne odgovara ideji stranice), klik na sliku je zumira a esc vraca nazad na stranicu
 - AJAX: ostavila sam dusu na onom wamp cudu i ne zelim vise ikad ono da radim, uglavnom kod je tu samo treba valjda podesiti string kada se bude provjeravalo
+
+**Spirala 3**
+
+- Serijaliziraju se postovi (post->title,desc,image)
+- Nakon logina moguce je promijeniti naziv i opis posta, a moguce je i izbrisati post
+- Nacin na koji je brisanje implementirano osigurat ce da uvijek postoje tri posta, na neki nacin
+- Nemoguce je promijeniti sliku (bit ce uradjeno kasnije kad se implementira submitanje)
+- Iz inputa se eliminisu html specijalni karakteri tako da je osigurana zastita od XSS napada
+- Download je omogucen samo dok traje admin sesija, logout link je na dnu stranice
+- U csv fajl se stavljaju podaci o postovima, download link isto na dnu stranice
+- pdf se generise i otvara se link u novom tabu/prozoru, link je pogodite gdje? Na dnu stranice! (can u tell i suck at css cause i do)
+- Search je implementiran po jednom polju jer drugog polja nemam i ne mogu ga izmisliti
+- OpenShift dio ce biti uradjen ako dobijem dozvolu na vrijeme
