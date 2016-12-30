@@ -239,6 +239,7 @@
         <script src="ajaxScript.js"></script>
         <script src="galleryScript.js"></script>
         <script src="adminModal.js"></script>
+        <script src="search.js"></script>
     </head>
     <body>
         <div class="content"> 
@@ -251,7 +252,7 @@
                         <a href="#" onclick="ajaxSwitch('http://localhost:81/wt/clonerino/Files/admin_content.html', 'admin_style.css')">Admin page</a>
                         <!--<a href="#" onclick="ajaxSwitch('http://localhost:81/wt/clonerino/Files/meme_content.php', 'meme_style.css')">Saucy memes</a>-->
                         <a href="meme_content.php">Saucy memes</a>
-                        <a href="http://www.w3schools.com/css/css_rwd_grid.asp">Doggos and other special animols</a>
+                        <a href="#" onclick="ajaxSwitch('http://localhost:81/wt/clonerino/Files/doggos_content.html', 'doggos_style.css')">Doggos and other special animols</a>
                         <a href="#" onclick="ajaxSwitch('http://localhost:81/wt/clonerino/Files/harambe_content.html', 'harambe_style.css')">Harambe tribute page</a>
                     </div>
                 </div>
