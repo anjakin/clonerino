@@ -21,11 +21,11 @@
             $forJSON = $result->fetchAll(PDO::FETCH_OBJ);
             $connection = null;
             
-            echo '{"Posts":' . json_encode($forJSON) . '}';
+            echo '{"Posts":'.json_encode($forJSON).'}';
         }
         catch (PDOException $e) {
             
-            echo '{"Exception":{"message":'. $e->getMessage() .'}}';
+            echo '{"Exception":{"message":'.$e->getMessage().'}}';
         }
     }
 
@@ -43,11 +43,11 @@
             $forJSON = $result->fetchAll(PDO::FETCH_OBJ);
             $connection = null;
             
-            echo '{"Posts":' . json_encode($forJSON) . '}';
+            echo '{"Posts":'.json_encode($forJSON).'}';
         }
         catch (PDOException $e) {
             
-            echo '{"Exception":{"message":'. $e->getMessage() .'}}';
+            echo '{"Exception":{"message":'.$e->getMessage().'}}';
         }
     }
 

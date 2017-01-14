@@ -32,3 +32,12 @@
 - pdf se generise i otvara se link u novom tabu/prozoru, link je pogodite gdje? Na dnu stranice! (can u tell i suck at css cause i do)
 - Search je implementiran po jednom polju jer drugog polja nemam i ne mogu ga izmisliti
 - OpenShift dio ce biti uradjen ako dobijem dozvolu na vrijeme
+
+**Spirala 4**
+
+- Kreirane tabele za admine/korisnike, postove i alt. slike
+- Uradjeno je kupljenje i ubacivanje podataka u bazu, s tim da se podaci prvo moraju jednom rucno ubaciti (nije bug nego feature)
+- Prije nego se podaci ubace provjerava se postoje li vec u bazi tako da nema duplikata
+- Prikazuju se podaci iz baze, ukucani username i password se porede sa podacima iz baze itd.
+- Implementirana je GET metoda REST servisa i dohvacaju se ili svi, ili samo neki podaci u zavisnosti od parametra, po template
+- Openshift dio nije zavrsen (tehnicki nije ni pocet ali nije ni zavrsen)
