@@ -1,18 +1,18 @@
 <?xml version="1.0"?>
 <posts>
             <post>
-                <title>First meme</title>
-                <desc>This is the first meme</desc>
+                <title>testerino</title>
+                <desc>hello this is a test</desc>
                 <image>Images/meme1.png</image>
             </post>
             <post>
-                <title>hello</title>
-                <desc>This is the second meme</desc>
+                <title>testo</title>
+                <desc>This is the second memerino</desc>
                 <image>Images/meme2.png</image>
             </post>
             <post>
-                <title>Third meme</title>
-                <desc>This is the third meme</desc>                
+                <title>Third meme :3</title>
+                <desc>This is the third memerino</desc>                
                 <image>Images/meme3.jpg</image>
             </post>
         </posts>

@@ -19,27 +19,42 @@
     if(isset($_REQUEST['submitadminbtn'])) {
 		if(isset($_REQUEST['password'])) {
             
-			if($_REQUEST['username'] === "admin" && $_REQUEST['password'] === "adminpass") {
+            $connection = new PDO("mysql:dbname=wt-spirala4-v2;host=localhost;charset=utf8", "anjakin", "clonerino");
+            $connection->exec("set names utf8");
+            
+            $passCheck = "";
+            $usernameCheck = "";
+            $loggedIn = false;
+            foreach ($connection->query("SELECT * FROM `admins`;") as $row) {
                 
-                if (session_status() == PHP_SESSION_NONE) {
-                    session_start();
-                }
+                $passCheck = $row['password'];
+                $usernameCheck = $row['username'];
+                if($_REQUEST['username'] === $usernameCheck && $_REQUEST['password'] === $passCheck) {
                 
-                phpAlert("Successful login.");
-				$username = $_REQUEST['username'];
-				$_SESSION['username']= $username;
-                $_SESSION['state'] = "adminmode";
-			}
-			else {
+                    if (session_status() == PHP_SESSION_NONE) {
+                        session_start();
+                    }
+
+                    phpAlert("Successful login.");
+                    $loggedIn = true;
+                    $username = $_REQUEST['username'];
+                    $_SESSION['username']= $username;
+                    $_SESSION['state'] = "adminmode";
+			     }
+                else {
                 
-                phpAlert("Wrong login info.");
-                if (session_status() != PHP_SESSION_NONE) {
-                    session_unset();
-                    session_destroy();
-                }
+                    phpAlert("Wrong login info.");
+                    if (session_status() != PHP_SESSION_NONE) {
+                        session_unset();
+                        session_destroy();
+                    }
+
+                    $username = "";
+			    }
                 
-				$username = "";
-			}
+                if ($loggedIn) 
+                    break;
+            }
 		}
     }
     
@@ -267,39 +282,33 @@
                             </div>
                             <div class="col-1-2">
                                 <?php if(isset($_SESSION['state']) && $_SESSION['state'] === "adminmode"): ?>
-                                    <?php
-                                        $postData = simplexml_load_file($postsXML);
-                                        $children = $postData->children();
-                                        $grandchildren = $children[0]->children();
-                                        echo '<form method="post" action="'.htmlspecialchars($_SERVER["PHP_SELF"]).'">
-                                            <input type="text" value="'.trim(htmlspecialchars($grandchildren[0])).'" name="input_title1" id="title_area">
-                                            <a href="comment_page.html" class="commentslink">comments</a>
-                                            <button type="submit" name="save_changes1" id="savebtn1">Save changes</button>
-                                            <button type="submit" name="delete_post1" id="deletebtn1">Remove post</button>
-                                            <br>
-                                            <textarea name="input_desc1" id="desc_textarea">'.trim(htmlspecialchars($grandchildren[1])).'</textarea>
-                                        </form>';
-                                        if (isset($_POST['save_changes1'])) {
-                                            
-                                            $newXML = simplexml_load_file($postsXML);
-                                            $newXML->post[0]->title = $_POST['input_title1'];
-                                            $newXML->post[0]->desc = $_POST['input_desc1'];
-                                            $newXML->asXML($postsXML);
-                                        }
-                                
-                                        if (isset($_POST['delete_post1'])) {
-                                            
-                                            $newXML = simplexml_load_file($postsXML);
-                                            $newXML->post[0]->title = "REMOVED";
-                                            $newXML->post[0]->desc = "REMOVED";
-                                            $newXML->post[0]->image = 'Images/placeholder.png';
-                                            $newXML->asXML($postsXML);
-                                        }
-                                    ?>
+                                    <?php include 'first_meme.php'; ?>
                                 <?php else: ?>
-                                    <h3><?php echo $postData->post[0]->title ?></h3>
-                                    <a href="comment_page.html" class="commentslink">comments</a>
-                                    <p><?php echo $postData->post[0]->desc ?></p>
+                                    <?php 
+                                
+                                        $connection = new PDO("mysql:dbname=wt-spirala4-v2;host=localhost;charset=utf8", "anjakin", "clonerino");
+                                        $connection->exec("set names utf8");
+                                        
+                                        $i = 0;
+                                        $inputTitle = "";
+                                        $inputDesc = "";
+                                        foreach ($connection->query("SELECT * FROM `posts` WHERE `id`=1;") as $row) {
+                                                
+                                            $inputTitle = $row['title'];
+                                            $inputDesc = $row['description'];
+                                            $i++;
+                                        }
+                                        
+                                        if ($inputTitle === "")
+                                            $inputTitle = $postData->post[0]->title;
+                                        
+                                        if ($inputDesc === "") 
+                                            $inputDesc = $postData->post[0]->desc;
+                                
+                                        echo '<h3>'.htmlspecialchars($inputTitle).'</h3> 
+                                        <a href="comment_page.html" class="commentslink">comments</a>
+                                        <p>'.htmlspecialchars($inputDesc).'</p>'
+                                    ?>
                                 <?php endif; ?>
                             </div>
                         </div>
@@ -311,39 +320,33 @@
                             </div>
                             <div class="col-1-2">
                                 <?php if(isset($_SESSION['state']) && $_SESSION['state'] === "adminmode"): ?>
-                                    <?php
-                                        $postData = simplexml_load_file($postsXML);
-                                        $children = $postData->children();
-                                        $grandchildren = $children[1]->children();
-                                        echo '<form method="post" action="'.htmlspecialchars($_SERVER["PHP_SELF"]).'">
-                                            <input type="text" value="'.trim(htmlspecialchars($grandchildren[0])).'" name="input_title2" id="title_area">
-                                            <a href="comment_page.html" class="commentslink">comments</a>
-                                            <button type="submit" name="save_changes2" id="savebtn2">Save changes</button>
-                                            <button type="submit" name="delete_post2" id="deletebtn2">Remove post</button>
-                                            <br>
-                                            <textarea name="input_desc2" id="desc_textarea">'.trim(htmlspecialchars($grandchildren[1])).'</textarea>
-                                        </form>';
-                                        if (isset($_POST['save_changes2'])) {
-                                            
-                                            $newXML = simplexml_load_file($postsXML);
-                                            $newXML->post[1]->title = $_POST['input_title2'];
-                                            $newXML->post[1]->desc = $_POST['input_desc2'];
-                                            $newXML->asXML($postsXML);
-                                        }
-                                
-                                        if (isset($_POST['delete_post2'])) {
-                                            
-                                            $newXML = simplexml_load_file($postsXML);
-                                            $newXML->post[1]->title = "REMOVED";
-                                            $newXML->post[1]->desc = "REMOVED";
-                                            $newXML->post[1]->image = 'Images/placeholder.png';
-                                            $newXML->asXML($postsXML);
-                                        }
-                                    ?>
+                                    <?php include 'second_meme.php'; ?>
                                 <?php else: ?>
-                                    <h3><?php echo $postData->post[1]->title ?></h3>
-                                    <a href="comment_page.html" class="commentslink">comments</a>
-                                    <p><?php echo $postData->post[1]->desc ?></p>
+                                    <?php 
+                                
+                                        $connection = new PDO("mysql:dbname=wt-spirala4-v2;host=localhost;charset=utf8", "anjakin", "clonerino");
+                                        $connection->exec("set names utf8");
+                                        
+                                        $i = 0;
+                                        $inputTitle = "";
+                                        $inputDesc = "";
+                                        foreach ($connection->query("SELECT * FROM `posts` WHERE `id`=2;") as $row) {
+                                                
+                                            $inputTitle = $row['title'];
+                                            $inputDesc = $row['description'];
+                                            $i++;
+                                        }
+                                        
+                                        if ($inputTitle === "")
+                                            $inputTitle = $postData->post[1]->title;
+                                        
+                                        if ($inputDesc === "") 
+                                            $inputDesc = $postData->post[1]->desc;
+                                
+                                        echo '<h3>'.htmlspecialchars($inputTitle).'</h3> 
+                                        <a href="comment_page.html" class="commentslink">comments</a>
+                                        <p>'.htmlspecialchars($inputDesc).'</p>'
+                                    ?>
                                 <?php endif; ?>
                             </div>
                         </div>
@@ -355,39 +358,33 @@
                             </div>
                             <div class="col-1-2">
                                 <?php if(isset($_SESSION['state']) && $_SESSION['state'] === "adminmode"): ?>
-                                    <?php
-                                        $postData = simplexml_load_file($postsXML);
-                                        $children = $postData->children();
-                                        $grandchildren = $children[2]->children();
-                                        echo '<form method="post" action="'.htmlspecialchars($_SERVER["PHP_SELF"]).'">
-                                            <input type="text" value="'.trim(htmlspecialchars($grandchildren[0])).'" name="input_title3" id="title_area">
-                                            <a href="comment_page.html" class="commentslink">comments</a>
-                                            <button type="submit" name="save_changes3" id="savebtn3">Save changes</button>
-                                            <button type="submit" name="delete_post3" id="deletebtn3">Remove post</button>
-                                            <br>
-                                            <textarea name="input_desc3" id="desc_textarea">'.trim(htmlspecialchars($grandchildren[1])).'</textarea>
-                                        </form>';
-                                        if (isset($_POST['save_changes3'])) {
-                                            
-                                            $newXML = simplexml_load_file($postsXML);
-                                            $newXML->post[2]->title = $_POST['input_title3'];
-                                            $newXML->post[2]->desc = $_POST['input_desc3'];
-                                            $newXML->asXML($postsXML);                                           
-                                        }
-                                
-                                    if (isset($_POST['delete_post3'])) {
-                                            
-                                            $newXML = simplexml_load_file($postsXML);
-                                            $newXML->post[2]->title = "REMOVED";
-                                            $newXML->post[2]->desc = "REMOVED";
-                                            $newXML->post[2]->image = 'Images/placeholder.png';
-                                            $newXML->asXML($postsXML);
-                                        }
-                                    ?>
+                                    <?php include 'third_meme.php'; ?>
                                 <?php else: ?>
-                                    <h3><?php echo $postData->post[2]->title ?></h3>
-                                    <a href="comment_page.html" class="commentslink">comments</a>
-                                    <p><?php echo $postData->post[2]->desc ?></p>
+                                    <?php 
+                                
+                                        $connection = new PDO("mysql:dbname=wt-spirala4-v2;host=localhost;charset=utf8", "anjakin", "clonerino");
+                                        $connection->exec("set names utf8");
+                                        
+                                        $i = 0;
+                                        $inputTitle = "";
+                                        $inputDesc = "";
+                                        foreach ($connection->query("SELECT * FROM `posts` WHERE `id`=3;") as $row) {
+                                                
+                                            $inputTitle = $row['title'];
+                                            $inputDesc = $row['description'];
+                                            $i++;
+                                        }
+                                        
+                                        if ($inputTitle === "")
+                                            $inputTitle = $postData->post[2]->title;
+                                        
+                                        if ($inputDesc === "") 
+                                            $inputDesc = $postData->post[2]->desc;
+                                
+                                        echo '<h3>'.htmlspecialchars($inputTitle).'</h3> 
+                                        <a href="comment_page.html" class="commentslink">comments</a>
+                                        <p>'.htmlspecialchars($inputDesc).'</p>'
+                                    ?>
                                 <?php endif; ?>
                             </div>
                         </div>
@@ -405,6 +402,44 @@
                         <a href="data.csv" id="downloadcsv">Download csv file</a>
                         <br>
                         <a href="statistics.pdf" id="downloadpdf">Open pdf file</a>
+                        <br>
+                        <br>
+                        <!-- <a href="meme_content.php?subject=images_to_db" id="imgs_sql_link">Add other images to database</a> -->
+                        <?php
+                            echo '<form method="post" action="'.htmlspecialchars($_SERVER["PHP_SELF"]).'">
+                            <button type="submit" name="images_to_db" id="images_to_db_btn">Add other images to database</button></form>';
+                    
+                            if (isset($_POST['images_to_db'])) {
+                                            
+                                $connection = new PDO("mysql:dbname=wt-spirala4-v2;host=localhost;charset=utf8", "anjakin", "clonerino");
+                                $connection->exec("set names utf8");
+
+                                $imagesData = simplexml_load_file("links.xml");
+
+                                for ($i = 0; $i < 4; $i++) {
+
+                                    $title = $imagesData->link[$i]->title;
+                                    $link = $imagesData->link[$i]->url;
+                                    // $connection->query("ALTER TABLE `images` AUTO_INCREMENT=1");
+                                    
+                                    $j = 0;
+                                    foreach($connection->query("SELECT * FROM `images` WHERE `url`='$link';") as $row) {
+                                        $j++;
+                                    }
+                                    
+                                    if ($j == 0) {
+                                        
+                                        $result = $connection->query("INSERT INTO `images` (`title`,`url`) VALUES ('$title', '$link');");
+                                        if (!$result) {
+
+                                            $error = $connection->errorInfo();
+                                            print "SQL error: " . $error[2];
+                                            exit();
+                                        }
+                                    }
+                                }                                          
+                            }
+                        ?>
                     <?php else: ?>
                         <button id="adminloginbtn" onclick="adminFoo()">Log in as admin</button>
                         <div id="adminmodal" class="modal">
